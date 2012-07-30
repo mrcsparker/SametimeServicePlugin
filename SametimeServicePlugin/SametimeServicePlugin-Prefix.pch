@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'SametimeServicePlugin' target in the 'SametimeServicePlugin' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
