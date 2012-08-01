@@ -7,28 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED06913D15C8DCE300B7530C /* sametime-small.png in Resources */ = {isa = PBXBuildFile; fileRef = ED06913B15C8DCE200B7530C /* sametime-small.png */; };
+		ED06913E15C8DCE300B7530C /* sametime.png in Resources */ = {isa = PBXBuildFile; fileRef = ED06913C15C8DCE200B7530C /* sametime.png */; };
 		ED99CE4A15C65DC500B4894C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED99CE4915C65DC500B4894C /* Cocoa.framework */; };
 		ED99CE5415C65DC500B4894C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ED99CE5215C65DC500B4894C /* InfoPlist.strings */; };
 		ED99CE5815C65DC500B4894C /* SametimeServicePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = ED99CE5715C65DC500B4894C /* SametimeServicePlugin.m */; };
-		ED99CE6015C65DC500B4894C /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED99CE5F15C65DC500B4894C /* SenTestingKit.framework */; };
-		ED99CE6115C65DC500B4894C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED99CE4915C65DC500B4894C /* Cocoa.framework */; };
-		ED99CE6415C65DC500B4894C /* SametimeServicePlugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED99CE4615C65DC500B4894C /* SametimeServicePlugin.framework */; };
-		ED99CE6A15C65DC500B4894C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ED99CE6815C65DC500B4894C /* InfoPlist.strings */; };
-		ED99CE6D15C65DC500B4894C /* SametimeServicePluginTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ED99CE6C15C65DC500B4894C /* SametimeServicePluginTests.m */; };
+		ED99CE7715C65E0300B4894C /* IMServicePlugIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED99CE7615C65E0300B4894C /* IMServicePlugIn.framework */; };
+		EDF218EF15C7AE8D00534539 /* libmeanwhile.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EDF218EE15C7AE8D00534539 /* libmeanwhile.1.dylib */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		ED99CE6215C65DC500B4894C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = ED99CE3C15C65DC500B4894C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = ED99CE4515C65DC500B4894C;
-			remoteInfo = SametimeServicePlugin;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		ED99CE4615C65DC500B4894C /* SametimeServicePlugin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SametimeServicePlugin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED06913B15C8DCE200B7530C /* sametime-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sametime-small.png"; sourceTree = "<group>"; };
+		ED06913C15C8DCE200B7530C /* sametime.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sametime.png; sourceTree = "<group>"; };
+		ED99CE4615C65DC500B4894C /* Sametime.imserviceplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Sametime.imserviceplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED99CE4915C65DC500B4894C /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		ED99CE4C15C65DC500B4894C /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		ED99CE4D15C65DC500B4894C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -38,12 +29,8 @@
 		ED99CE5515C65DC500B4894C /* SametimeServicePlugin-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SametimeServicePlugin-Prefix.pch"; sourceTree = "<group>"; };
 		ED99CE5615C65DC500B4894C /* SametimeServicePlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SametimeServicePlugin.h; sourceTree = "<group>"; };
 		ED99CE5715C65DC500B4894C /* SametimeServicePlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SametimeServicePlugin.m; sourceTree = "<group>"; };
-		ED99CE5E15C65DC500B4894C /* SametimeServicePluginTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SametimeServicePluginTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		ED99CE5F15C65DC500B4894C /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		ED99CE6715C65DC500B4894C /* SametimeServicePluginTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SametimeServicePluginTests-Info.plist"; sourceTree = "<group>"; };
-		ED99CE6915C65DC500B4894C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		ED99CE6B15C65DC500B4894C /* SametimeServicePluginTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SametimeServicePluginTests.h; sourceTree = "<group>"; };
-		ED99CE6C15C65DC500B4894C /* SametimeServicePluginTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SametimeServicePluginTests.m; sourceTree = "<group>"; };
+		ED99CE7615C65E0300B4894C /* IMServicePlugIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IMServicePlugIn.framework; path = System/Library/Frameworks/IMServicePlugIn.framework; sourceTree = SDKROOT; };
+		EDF218EE15C7AE8D00534539 /* libmeanwhile.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmeanwhile.1.dylib; path = ../../../../../../usr/local/lib/libmeanwhile.1.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,27 +39,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED99CE4A15C65DC500B4894C /* Cocoa.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		ED99CE5A15C65DC500B4894C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				ED99CE6015C65DC500B4894C /* SenTestingKit.framework in Frameworks */,
-				ED99CE6115C65DC500B4894C /* Cocoa.framework in Frameworks */,
-				ED99CE6415C65DC500B4894C /* SametimeServicePlugin.framework in Frameworks */,
+				ED99CE7715C65E0300B4894C /* IMServicePlugIn.framework in Frameworks */,
+				EDF218EF15C7AE8D00534539 /* libmeanwhile.1.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		ED06914015C8DD7600B7530C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				ED06913B15C8DCE200B7530C /* sametime-small.png */,
+				ED06913C15C8DCE200B7530C /* sametime.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		ED99CE3A15C65DC500B4894C = {
 			isa = PBXGroup;
 			children = (
+				ED06914015C8DD7600B7530C /* Resources */,
+				EDF218EE15C7AE8D00534539 /* libmeanwhile.1.dylib */,
 				ED99CE4F15C65DC500B4894C /* SametimeServicePlugin */,
-				ED99CE6515C65DC500B4894C /* SametimeServicePluginTests */,
 				ED99CE4815C65DC500B4894C /* Frameworks */,
 				ED99CE4715C65DC500B4894C /* Products */,
 			);
@@ -81,8 +70,7 @@
 		ED99CE4715C65DC500B4894C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				ED99CE4615C65DC500B4894C /* SametimeServicePlugin.framework */,
-				ED99CE5E15C65DC500B4894C /* SametimeServicePluginTests.octest */,
+				ED99CE4615C65DC500B4894C /* Sametime.imserviceplugin */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -90,8 +78,8 @@
 		ED99CE4815C65DC500B4894C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ED99CE7615C65E0300B4894C /* IMServicePlugIn.framework */,
 				ED99CE4915C65DC500B4894C /* Cocoa.framework */,
-				ED99CE5F15C65DC500B4894C /* SenTestingKit.framework */,
 				ED99CE4B15C65DC500B4894C /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -127,25 +115,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		ED99CE6515C65DC500B4894C /* SametimeServicePluginTests */ = {
-			isa = PBXGroup;
-			children = (
-				ED99CE6B15C65DC500B4894C /* SametimeServicePluginTests.h */,
-				ED99CE6C15C65DC500B4894C /* SametimeServicePluginTests.m */,
-				ED99CE6615C65DC500B4894C /* Supporting Files */,
-			);
-			path = SametimeServicePluginTests;
-			sourceTree = "<group>";
-		};
-		ED99CE6615C65DC500B4894C /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				ED99CE6715C65DC500B4894C /* SametimeServicePluginTests-Info.plist */,
-				ED99CE6815C65DC500B4894C /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -174,27 +143,8 @@
 			);
 			name = SametimeServicePlugin;
 			productName = SametimeServicePlugin;
-			productReference = ED99CE4615C65DC500B4894C /* SametimeServicePlugin.framework */;
+			productReference = ED99CE4615C65DC500B4894C /* Sametime.imserviceplugin */;
 			productType = "com.apple.product-type.framework";
-		};
-		ED99CE5D15C65DC500B4894C /* SametimeServicePluginTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = ED99CE7315C65DC500B4894C /* Build configuration list for PBXNativeTarget "SametimeServicePluginTests" */;
-			buildPhases = (
-				ED99CE5915C65DC500B4894C /* Sources */,
-				ED99CE5A15C65DC500B4894C /* Frameworks */,
-				ED99CE5B15C65DC500B4894C /* Resources */,
-				ED99CE5C15C65DC500B4894C /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				ED99CE6315C65DC500B4894C /* PBXTargetDependency */,
-			);
-			name = SametimeServicePluginTests;
-			productName = SametimeServicePluginTests;
-			productReference = ED99CE5E15C65DC500B4894C /* SametimeServicePluginTests.octest */;
-			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
 
@@ -218,7 +168,6 @@
 			projectRoot = "";
 			targets = (
 				ED99CE4515C65DC500B4894C /* SametimeServicePlugin */,
-				ED99CE5D15C65DC500B4894C /* SametimeServicePluginTests */,
 			);
 		};
 /* End PBXProject section */
@@ -229,34 +178,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED99CE5415C65DC500B4894C /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		ED99CE5B15C65DC500B4894C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				ED99CE6A15C65DC500B4894C /* InfoPlist.strings in Resources */,
+				ED06913D15C8DCE300B7530C /* sametime-small.png in Resources */,
+				ED06913E15C8DCE300B7530C /* sametime.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		ED99CE5C15C65DC500B4894C /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		ED99CE4115C65DC500B4894C /* Sources */ = {
@@ -267,37 +194,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		ED99CE5915C65DC500B4894C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				ED99CE6D15C65DC500B4894C /* SametimeServicePluginTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		ED99CE6315C65DC500B4894C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = ED99CE4515C65DC500B4894C /* SametimeServicePlugin */;
-			targetProxy = ED99CE6215C65DC500B4894C /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		ED99CE5215C65DC500B4894C /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				ED99CE5315C65DC500B4894C /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		ED99CE6815C65DC500B4894C /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				ED99CE6915C65DC500B4894C /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -360,12 +263,28 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SametimeServicePlugin/SametimeServicePlugin-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					/usr/local/include/meanwhile,
+					"/usr/local/include/glib-2.0/glib",
+					"/usr/local/include/glib-2.0",
+					"/usr/local/include/glib-2.0/gio",
+					"/usr/local/include/glib-2.0/gobject",
+					"/usr/local/lib/glib-2.0/include",
+				);
 				INFOPLIST_FILE = "SametimeServicePlugin/SametimeServicePlugin-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = framework;
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/iChat/PlugIns";
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				OTHER_LDFLAGS = (
+					"-L/usr/local/lib",
+					"-lglib-2.0",
+				);
+				PRODUCT_NAME = Sametime;
+				WRAPPER_EXTENSION = imserviceplugin;
 			};
 			name = Debug;
 		};
@@ -375,38 +294,28 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SametimeServicePlugin/SametimeServicePlugin-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					/usr/local/include/meanwhile,
+					"/usr/local/include/glib-2.0/glib",
+					"/usr/local/include/glib-2.0",
+					"/usr/local/include/glib-2.0/gio",
+					"/usr/local/include/glib-2.0/gobject",
+					"/usr/local/lib/glib-2.0/include",
+				);
 				INFOPLIST_FILE = "SametimeServicePlugin/SametimeServicePlugin-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = framework;
-			};
-			name = Release;
-		};
-		ED99CE7415C65DC500B4894C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SametimeServicePlugin/SametimeServicePlugin-Prefix.pch";
-				INFOPLIST_FILE = "SametimeServicePluginTests/SametimeServicePluginTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Debug;
-		};
-		ED99CE7515C65DC500B4894C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "SametimeServicePlugin/SametimeServicePlugin-Prefix.pch";
-				INFOPLIST_FILE = "SametimeServicePluginTests/SametimeServicePluginTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/iChat/PlugIns";
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				OTHER_LDFLAGS = (
+					"-L/usr/local/lib",
+					"-lglib-2.0",
+				);
+				PRODUCT_NAME = Sametime;
+				WRAPPER_EXTENSION = imserviceplugin;
 			};
 			name = Release;
 		};
@@ -429,14 +338,7 @@
 				ED99CE7215C65DC500B4894C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-		};
-		ED99CE7315C65DC500B4894C /* Build configuration list for PBXNativeTarget "SametimeServicePluginTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				ED99CE7415C65DC500B4894C /* Debug */,
-				ED99CE7515C65DC500B4894C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
