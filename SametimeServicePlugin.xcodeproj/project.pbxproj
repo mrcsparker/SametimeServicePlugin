@@ -13,6 +13,7 @@
 		ED99CE5415C65DC500B4894C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ED99CE5215C65DC500B4894C /* InfoPlist.strings */; };
 		ED99CE5815C65DC500B4894C /* SametimeServicePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = ED99CE5715C65DC500B4894C /* SametimeServicePlugin.m */; };
 		ED99CE7715C65E0300B4894C /* IMServicePlugIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED99CE7615C65E0300B4894C /* IMServicePlugIn.framework */; };
+		EDA186E215C8F1EA0070ABAF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = EDA186E115C8F1EA0070ABAF /* README.md */; };
 		EDF218EF15C7AE8D00534539 /* libmeanwhile.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EDF218EE15C7AE8D00534539 /* libmeanwhile.1.dylib */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +31,7 @@
 		ED99CE5615C65DC500B4894C /* SametimeServicePlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SametimeServicePlugin.h; sourceTree = "<group>"; };
 		ED99CE5715C65DC500B4894C /* SametimeServicePlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SametimeServicePlugin.m; sourceTree = "<group>"; };
 		ED99CE7615C65E0300B4894C /* IMServicePlugIn.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IMServicePlugIn.framework; path = System/Library/Frameworks/IMServicePlugIn.framework; sourceTree = SDKROOT; };
+		EDA186E115C8F1EA0070ABAF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		EDF218EE15C7AE8D00534539 /* libmeanwhile.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libmeanwhile.1.dylib; path = ../../../../../../usr/local/lib/libmeanwhile.1.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -59,6 +61,7 @@
 		ED99CE3A15C65DC500B4894C = {
 			isa = PBXGroup;
 			children = (
+				EDA186E115C8F1EA0070ABAF /* README.md */,
 				ED06914015C8DD7600B7530C /* Resources */,
 				EDF218EE15C7AE8D00534539 /* libmeanwhile.1.dylib */,
 				ED99CE4F15C65DC500B4894C /* SametimeServicePlugin */,
@@ -180,6 +183,7 @@
 				ED99CE5415C65DC500B4894C /* InfoPlist.strings in Resources */,
 				ED06913D15C8DCE300B7530C /* sametime-small.png in Resources */,
 				ED06913E15C8DCE300B7530C /* sametime.png in Resources */,
+				EDA186E215C8F1EA0070ABAF /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
