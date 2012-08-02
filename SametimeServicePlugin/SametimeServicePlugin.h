@@ -16,7 +16,7 @@
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with SametimeServicePlugin.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 
 #import <Foundation/Foundation.h>
 #import <IMServicePlugIn/IMServicePlugIn.h>
@@ -53,7 +53,7 @@ struct MeanwhileClient
     
     /** Aware List Handler */
     struct mwAwareListHandler awareListHandler;
-
+    
     /** The aware list */
     struct mwAwareList *awareList;
     
@@ -76,19 +76,25 @@ struct MeanwhileClient
     int sockEvent;
     
     void *application;
-
+    
 };
 
 @interface SametimeServicePlugin : NSObject <
-    IMServicePlugIn, 
-    IMServicePlugInChatRoomSupport, 
-    IMServicePlugInInstantMessagingSupport> 
+    IMServicePlugIn,
+    IMServicePlugInChatRoomSupport,
+    IMServicePlugInGroupListSupport,
+    IMServicePlugInInstantMessagingSupport,
+    IMServicePlugInPresenceSupport>
 {
     
-  struct MeanwhileClient *client;
+    struct MeanwhileClient *client;
 }
 
-@property (assign) id <IMServiceApplication, IMServiceApplicationChatRoomSupport, IMServiceApplicationInstantMessagingSupport> application;
+@property (assign) id <
+    IMServiceApplication,
+    IMServiceApplicationChatRoomSupport,
+    IMServiceApplicationGroupListSupport,
+    IMServiceApplicationInstantMessagingSupport> application;
 @property (retain) NSDictionary *accountSettings;
 
 @end

@@ -40,6 +40,7 @@ static int initiateSocket(const char *host, int port)
     
     sock = socket(PF_INET, SOCK_STREAM, 0);
     if (socket < 0) {
+        NSLog(@"Socket failure");
         exit(1);
     }
 
@@ -47,6 +48,7 @@ static int initiateSocket(const char *host, int port)
     serverName.sin_port = htons(port);
     hostinfo = gethostbyname(host);
     if (hostinfo == NULL) {
+        NSLog(@"Unknown host %s", host);
         exit(1);
     }
     serverName.sin_addr = *(struct in_addr *) hostinfo->h_addr;
@@ -54,6 +56,44 @@ static int initiateSocket(const char *host, int port)
     connect(sock, (struct sockaddr *)&serverName, sizeof(serverName));
     
     return sock;
+}
+
+static long readSocketRecv(struct mwSession *session, int sock)
+{
+    guchar buf[2048];
+    long len;
+    
+    len = read(sock, buf, 2048);
+    
+    if (len > 0) {
+        mwSession_recv(session, buf, len);
+    }
+    
+    return len;
+}
+
+static gboolean readSocketCallback(GIOChannel *ioChannel, GIOCondition cond, gpointer data)
+{
+    struct MeanwhileClient *client = data;
+    long ret = 0;
+    
+    if (cond & G_IO_IN) {
+        ret = readSocketRecv(client->session, client->sock);
+        if (ret > 0) {
+            return TRUE;
+        }
+    }
+    
+    if (client->sock) {
+        g_source_remove(client->sockEvent);
+        
+        close(client->sock);
+        
+        client->sock = 0;
+        client->sockEvent = 0;
+    }
+    
+    return FALSE;
 }
 
 static int sessionIoWrite(struct mwSession *session, const guchar *buf, gsize len)
@@ -93,6 +133,7 @@ static void sessionIoClose(struct mwSession *session)
     struct MeanwhileClient *client;
     
     client = mwSession_getClientData(session);
+    
     g_return_if_fail(client != NULL);
     
     if (client->sock) {
@@ -105,35 +146,58 @@ static void sessionIoClose(struct mwSession *session)
 
 static void sessionOnStateChange(struct mwSession *session, enum mwSessionState state, gpointer info)
 {
+    struct MeanwhileClient *client;
+    
+    client = mwSession_getClientData(session);
+    
     switch (state) {
         case mwSession_STARTING:
+            NSLog(@"[2] Sending Handshake");
+            break;
         case mwSession_HANDSHAKE:
+            NSLog(@"[3] Waiting for Handshake Acknowledgement");
+            break;
         case mwSession_HANDSHAKE_ACK:
+            NSLog(@"[4] Handshake Acknowledged, Sending Login");
+            break;
         case mwSession_LOGIN:
-        case mwSession_LOGIN_CONT:
-        case mwSession_LOGIN_ACK:
+            NSLog(@"[5] Waiting for Login Acknowledgement");
             break;
-            
         case mwSession_LOGIN_REDIR:
+            NSLog(@"[6] Login redirected");
             break;
-            
+        case mwSession_LOGIN_CONT:
+            NSLog(@"[7] Forcing login");
+            break;
+        case mwSession_LOGIN_ACK:
+            NSLog(@"[8] Login Acknowledged");
+            break;                  
         case mwSession_STARTED:
         {
+            NSLog(@"[9] Starting services");
+
+            [(__bridge id)client->application plugInDidLogIn];
+            
             struct mwUserStatus stat = { mwStatus_ACTIVE, 0, 0L };
             mwSession_setUserStatus(session, &stat);
+            
+            NSLog(@"[10] Connected");
+            
+            struct mwLoginInfo *loginInfo = mwSession_getLoginInfo(session);
+            NSLog(@"Login info: %s", loginInfo->user_id);
         }
             break;
-            
         case mwSession_STOPPING:
+            NSLog(@"Stopping session");
             break;
-            
         case mwSession_STOPPED:
-            break;
-            
+            NSLog(@"Session stopped");
+            break;      
         case mwSession_UNKNOWN:
-            break;
-            
+            NSLog(@"Session unknown.  Your guess is as good as mine!");
+            break;         
         default:
+            NSLog(@"Session in unknown state.  You are in uncharted territory");
             break;
     }
 }
@@ -254,6 +318,41 @@ static void imClear(struct mwServiceIm *srvc)
     
 }
 
+static void requestGroupListCallback(struct mwServiceStorage *srvc,
+                                     guint32 result,
+                                     struct mwStorageUnit *item,
+                                     gpointer data)
+{
+    NSLog(@"requestGroupListCallback");
+    
+    struct MeanwhileClient *client = data;
+    struct mwSametimeList *list;
+    
+    struct mwGetBuffer *buf;
+    
+    g_return_if_fail(result == ERR_SUCCESS);
+    
+    buf = mwGetBuffer_wrap(mwStorageUnit_asOpaque(item));
+    
+    list = mwSametimeList_new();
+    mwSametimeList_get(buf, list);
+    
+    
+    GList *groupList;
+    
+    for (groupList = mwSametimeList_getGroups(list); groupList; groupList = groupList->next) {
+        struct mwSametimeGroup *sametimeGroup = (struct mwSametimeGroup *)groupList->data;
+        
+        NSLog(@"Sametime group: %s", mwSametimeGroup_getName(sametimeGroup));
+    }
+    
+    g_list_free(groupList);
+    
+    mwSametimeList_free(list);
+    mwGetBuffer_free(buf);
+    
+}
+
 // - end C code
 
 @implementation SametimeServicePlugin
@@ -351,21 +450,32 @@ static void imClear(struct mwServiceIm *srvc)
     NSString *authPort = [self.accountSettings objectForKey:IMAccountSettingServerPort];
     
     int port = (int) [authPort integerValue];
+    char *userName = (char *)[authToken cStringUsingEncoding:[NSString defaultCStringEncoding]];
+    char *password = (char *)[authPass cStringUsingEncoding:[NSString defaultCStringEncoding]];
+    char *server = (char *)[authHost cStringUsingEncoding:[NSString defaultCStringEncoding]];
+    
+    NSLog(@"Logging in with %s:%d, %s, %s", server, port, userName, password);
     
     client->session = mwSession_new(&(client->sessionHandler));
     mwSession_setProperty(client->session,
                           mwSession_AUTH_USER_ID,
-                          (gpointer)[authToken cStringUsingEncoding:[NSString defaultCStringEncoding]],
+                          userName,
                           NULL);
     
     mwSession_setProperty(client->session,
                           mwSession_AUTH_PASSWORD,
-                          (gpointer)[authPass cStringUsingEncoding:[NSString defaultCStringEncoding]],
+                          password,
                           NULL);
     
     mwSession_setClientData(client->session, client, g_free);
     
-    client->sock = initiateSocket((char *)[authHost cStringUsingEncoding:[NSString defaultCStringEncoding]], port);
+    client->sock = initiateSocket(server, port);
+    
+    NSLog(@"[1] Connecting");
+    
+    GIOChannel *ioChannel = g_io_channel_unix_new(client->sock);
+    client->sockEvent = g_io_add_watch(ioChannel, G_IO_IN | G_IO_ERR | G_IO_HUP,
+                                       readSocketCallback, client);
     
     mwSession_start(client->session);
 }
@@ -437,6 +547,17 @@ static void imClear(struct mwServiceIm *srvc)
 }
 
 #pragma mark -
+#pragma mark IMServicePlugInGroupListSupport
+- (oneway void) requestGroupList
+{
+    NSLog(@"requestGroupList");
+    
+    struct mwStorageUnit *unit = mwStorageUnit_new(mwStore_AWARE_LIST);
+    mwServiceStorage_load(client->serviceStorage, unit, &requestGroupListCallback, client, NULL);
+
+}
+
+#pragma mark -
 #pragma mark IMServiceApplicationInstantMessagingSupport
 
 - (oneway void) userDidStartTypingToHandle:(NSString *)handle
@@ -453,6 +574,14 @@ static void imClear(struct mwServiceIm *srvc)
 - (oneway void) sendMessage:(IMServicePlugInMessage *)message toHandle:(NSString *)handle
 {
     NSLog(@"sendMessage: %@ toHandle: %@", message, handle);
+}
+
+#pragma mark -
+#pragma mark IMServicePlugInPresenceSupport
+
+- (oneway void)updateSessionProperties:(NSDictionary *)properties
+{
+    NSLog(@"updateSessionProperties: %@", properties);
 }
 
 @end
