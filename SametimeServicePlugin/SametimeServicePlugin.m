@@ -32,72 +32,79 @@
 
 // - start C code
 
-static int initiateSocket(const char *host, int port)
+static void readSocketCallback(CFSocketRef s,
+                               CFSocketCallBackType type,
+                               CFDataRef address,
+                               const void *data,
+                               void *info)
 {
-    struct sockaddr_in serverName;
-    int sock;
+    NSLog(@"readSocketCallback");
+    
+    CFDataRef df = (CFDataRef) data;
+    long len = CFDataGetLength(df);
+    
+    struct mwSession *session = info;
+    
+    if (len <= 0) {
+        NSLog(@"No data");
+        return;
+    }
+    
+    CFRange range = CFRangeMake(0, len);
+    
+    UInt8 buffer[len];
+    
+    CFDataGetBytes(df, range, buffer);
+    
+    mwSession_recv(session, buffer, len);
+}
+
+
+CFSocketRef initiateSocket(const char *host, int port, struct mwSession *session)
+{
+    NSLog(@"initiateSocket");
+    
+    CFSocketRef s = NULL;
+    CFSocketContext cxt = { 0, session, NULL, NULL, NULL };
+    struct sockaddr_in addr;
     struct hostent *hostinfo;
     
-    sock = socket(PF_INET, SOCK_STREAM, 0);
-    if (socket < 0) {
-        NSLog(@"Socket failure");
-        exit(1);
-    }
+    s = CFSocketCreate(kCFAllocatorDefault,
+                       PF_INET,
+                       SOCK_STREAM,
+                       IPPROTO_TCP,
+                       kCFSocketAcceptCallBack,
+                       readSocketCallback,
+                       &cxt);
 
-    serverName.sin_family = AF_INET;
-    serverName.sin_port = htons(port);
+    memset(&addr, 0, sizeof(addr));
+    addr.sin_len = sizeof(addr);
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(port);
     hostinfo = gethostbyname(host);
     if (hostinfo == NULL) {
         NSLog(@"Unknown host %s", host);
         exit(1);
     }
-    serverName.sin_addr = *(struct in_addr *) hostinfo->h_addr;
-    
-    connect(sock, (struct sockaddr *)&serverName, sizeof(serverName));
-    
-    return sock;
-}
+    addr.sin_addr = *(struct in_addr *) hostinfo->h_addr;
 
-static long readSocketRecv(struct mwSession *session, int sock)
-{
-    guchar buf[2048];
-    long len;
-    
-    len = read(sock, buf, 2048);
-    
-    if (len > 0) {
-        mwSession_recv(session, buf, len);
+    CFDataRef address = CFDataCreate(NULL, (UInt8 *)&addr, sizeof(addr));
+    CFSocketError error = CFSocketConnectToAddress(s, address, 0);
+    if (error < 0) {
+        NSLog(@"initiateSocket: error connecting to server");
+        exit(1);
     }
+    CFRelease(address);
     
-    return len;
-}
-
-static gboolean readSocketCallback(GIOChannel *ioChannel, GIOCondition cond, gpointer data)
-{
-    struct MeanwhileClient *client = data;
-    long ret = 0;
+    return s;
     
-    if (cond & G_IO_IN) {
-        ret = readSocketRecv(client->session, client->sock);
-        if (ret > 0) {
-            return TRUE;
-        }
-    }
-    
-    if (client->sock) {
-        g_source_remove(client->sockEvent);
-        
-        close(client->sock);
-        
-        client->sock = 0;
-        client->sockEvent = 0;
-    }
-    
-    return FALSE;
 }
 
 static int sessionIoWrite(struct mwSession *session, const guchar *buf, gsize len)
 {
+    
+    NSLog(@"sessionIoWrite: %s", buf);
+    
     struct MeanwhileClient *client;
     long ret = 0;
     
@@ -105,24 +112,15 @@ static int sessionIoWrite(struct mwSession *session, const guchar *buf, gsize le
     
     g_return_val_if_fail(client != NULL, -1);
     
-    while(len) {
-        ret = write(client->sock, buf, len);
-        if (ret <= 0) {
-            break;
-        }
-        len -= ret;
-        buf += ret;
+    
+    if (client->sock == NULL) {
+        return -1;
     }
     
     if (len > 0) {
-        g_source_remove(client->sockEvent);
-        
-        close(client->sock);
-        
-        client->sock = 0;
-        client->sockEvent = 0;
-    
-        return -1;
+        CFDataRef data = CFDataCreate(NULL, buf, len);
+        CFSocketSendData(client->sock, NULL, data, 0);
+        CFRelease(data);
     }
     
     return 0;
@@ -137,10 +135,7 @@ static void sessionIoClose(struct mwSession *session)
     g_return_if_fail(client != NULL);
     
     if (client->sock) {
-        g_source_remove(client->sockEvent);
-        close(client->sock);
-        client->sock = 0;
-        client->sockEvent = 0;
+        
     }
 }
 
@@ -469,15 +464,19 @@ static void requestGroupListCallback(struct mwServiceStorage *srvc,
     
     mwSession_setClientData(client->session, client, g_free);
     
-    client->sock = initiateSocket(server, port);
+    client->sock = initiateSocket(server, port, client->session);
     
     NSLog(@"[1] Connecting");
     
-    GIOChannel *ioChannel = g_io_channel_unix_new(client->sock);
-    client->sockEvent = g_io_add_watch(ioChannel, G_IO_IN | G_IO_ERR | G_IO_HUP,
-                                       readSocketCallback, client);
-    
     mwSession_start(client->session);
+    
+    CFRunLoopSourceRef source = CFSocketCreateRunLoopSource(NULL, client->sock, 0);
+    CFRunLoopAddSource(CFRunLoopGetCurrent(),source, kCFRunLoopDefaultMode);
+    
+    CFRelease(source);
+    CFRelease(client->sock);
+    
+    CFRunLoopRun();
 }
 
 - (oneway void) logout

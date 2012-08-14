@@ -19,6 +19,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import <CoreFoundation/CFSocket.h>
 #import <IMServicePlugIn/IMServicePlugIn.h>
 
 #import <glib.h>
@@ -70,10 +71,7 @@ struct MeanwhileClient
     struct mwServiceStorage *serviceStorage;
     
     /** The socket connecting to the server */
-    int sock;
-    
-    /* glib event id polling the socket */
-    int sockEvent;
+    CFSocketRef sock;
     
     void *application;
     
@@ -86,7 +84,6 @@ struct MeanwhileClient
     IMServicePlugInInstantMessagingSupport,
     IMServicePlugInPresenceSupport>
 {
-    
     struct MeanwhileClient *client;
 }
 
