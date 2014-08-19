@@ -1,7 +1,9 @@
 # SametimeServicePlugin
 
-## This is a work in progress - it does not work yet
+## This was a work in progess.  I am not working on it anymore.
 
-An IMServicePlugin that allows for Sametime support in Messages/iChat.
+The official Apple API docs were too sparse for me.  I also couldn't find any working examples of Messages plugins that were more than very simple demos calling simple HTTP services.
 
-The goal right now is to just get it working.  Code is not pretty.
+Use Adium instead.  Adium might not be as pretty as Messages, but - until Apple updates their documentation - I am not going to continue working on this.
+
+Thanks to the people who have emailed me with interest in this plugin.  I really intended on getting it working.  I just don't have time to guess at how to make it happen.
